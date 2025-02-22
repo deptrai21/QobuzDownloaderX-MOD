@@ -191,6 +191,7 @@ namespace QobuzDownloaderX.Shared
 
             // Create padded track number string with minimum of 2 integer positions based on number of total tracks
             string paddedTrackNumber = DownloadInfo.TrackNumber.ToString().PadLeft(Math.Max(2, (int)Math.Floor(Math.Log10(DownloadInfo.TrackTotal) + 1)), '0');
+            paddedTrackNumber = DownloadInfo.DiscNumber.ToString() + " - " + paddedTrackNumber;
 
             // Create full track filename
             if (isPartOfTracklist)
@@ -1114,20 +1115,10 @@ namespace QobuzDownloaderX.Shared
             {
                 DownloadPaths.Path1Full = Path.Combine(basePath, DownloadPaths.AlbumArtistPath);
                 DownloadPaths.Path2Full = Path.Combine(basePath, DownloadPaths.AlbumArtistPath, DownloadPaths.AlbumNamePath + albumPathSuffix);
-                DownloadPaths.Path3Full = Path.Combine(basePath, DownloadPaths.AlbumArtistPath, DownloadPaths.AlbumNamePath + albumPathSuffix, qualityPath);
-
-                // If more than 1 disc, create folders for discs. Otherwise, strings will remain null
-                // Pad discnumber with minimum of 2 integer positions based on total number of disks
-                if (DownloadInfo.DiscTotal > 1)
-                {
-                    // Create strings for disc folders
-                    string discFolder = "CD " + DownloadInfo.DiscNumber.ToString().PadLeft(Math.Max(2, (int)Math.Floor(Math.Log10(DownloadInfo.DiscTotal) + 1)), '0');
-                    DownloadPaths.Path4Full = Path.Combine(basePath, DownloadPaths.AlbumArtistPath, DownloadPaths.AlbumNamePath + albumPathSuffix, qualityPath, discFolder);
-                }
-                else
-                {
-                    DownloadPaths.Path4Full = DownloadPaths.Path3Full;
-                }
+                string[] array = { DownloadPaths.AlbumArtistPath, DownloadInfo.ReleaseDate, DownloadPaths.AlbumNamePath + albumPathSuffix };
+                string result = string.Join(" - ", array);
+                DownloadPaths.Path3Full = Path.Combine(basePath, result);
+                DownloadPaths.Path4Full = DownloadPaths.Path3Full;
             }
 
             System.IO.Directory.CreateDirectory(DownloadPaths.Path4Full);
