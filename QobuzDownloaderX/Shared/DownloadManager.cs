@@ -1116,7 +1116,7 @@ namespace QobuzDownloaderX.Shared
                 DownloadPaths.Path1Full = Path.Combine(basePath, DownloadPaths.AlbumArtistPath);
                 DownloadPaths.Path2Full = Path.Combine(basePath, DownloadPaths.AlbumArtistPath, DownloadPaths.AlbumNamePath + albumPathSuffix);
                 DateTime date = DateTime.Parse(DownloadInfo.ReleaseDate);
-                var temp = { DownloadPaths.AlbumArtistPath, date.year, DownloadPaths.AlbumNamePath + albumPathSuffix };
+                var temp = new object[] { DownloadPaths.AlbumArtistPath, date.Year, DownloadPaths.AlbumNamePath + albumPathSuffix };
                 string result = string.Join(" - ", temp);
                 DownloadPaths.Path3Full = Path.Combine(basePath, result);
                 DownloadPaths.Path4Full = DownloadPaths.Path3Full;
