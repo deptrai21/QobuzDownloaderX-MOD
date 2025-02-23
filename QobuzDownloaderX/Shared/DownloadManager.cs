@@ -191,7 +191,7 @@ namespace QobuzDownloaderX.Shared
 
             // Create padded track number string with minimum of 2 integer positions based on number of total tracks
             string paddedTrackNumber = DownloadInfo.TrackNumber.ToString().PadLeft(Math.Max(2, (int)Math.Floor(Math.Log10(DownloadInfo.TrackTotal) + 1)), '0');
-            paddedTrackNumber = DownloadInfo.DiscNumber.ToString() + " - " + paddedTrackNumber;
+            paddedTrackNumber = DownloadInfo.DiscNumber.ToString() + "." + paddedTrackNumber;
 
             // Create full track filename
             if (isPartOfTracklist)
@@ -1115,8 +1115,9 @@ namespace QobuzDownloaderX.Shared
             {
                 DownloadPaths.Path1Full = Path.Combine(basePath, DownloadPaths.AlbumArtistPath);
                 DownloadPaths.Path2Full = Path.Combine(basePath, DownloadPaths.AlbumArtistPath, DownloadPaths.AlbumNamePath + albumPathSuffix);
-                string[] array = { DownloadPaths.AlbumArtistPath, DownloadInfo.ReleaseDate, DownloadPaths.AlbumNamePath + albumPathSuffix };
-                string result = string.Join(" - ", array);
+                DateTime date = DateTime.Parse(DownloadInfo.ReleaseDate);
+                var temp = { DownloadPaths.AlbumArtistPath, date.year, DownloadPaths.AlbumNamePath + albumPathSuffix };
+                string result = string.Join(" - ", temp);
                 DownloadPaths.Path3Full = Path.Combine(basePath, result);
                 DownloadPaths.Path4Full = DownloadPaths.Path3Full;
             }

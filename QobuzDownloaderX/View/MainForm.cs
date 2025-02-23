@@ -544,7 +544,7 @@ namespace QobuzDownloaderX
             }
             else if (filenameTempSelect.SelectedIndex == 1)
             {
-                Globals.FileNameTemplateString = " - ";
+                Globals.FileNameTemplateString = " ";
             }
             else
             {
