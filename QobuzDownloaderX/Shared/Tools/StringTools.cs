@@ -33,7 +33,8 @@ namespace QobuzDownloaderX.Shared
         {
             if (filename != null)
             {
-                string result = filename.Trim().TrimEnd('.');
+                // Trim + Remove all (combinations off) trailing dots and spaces
+                string result = Regex.Replace(filename.Trim(), @"[. ]+$", "");
                 return string.Join("_", result.Split(Path.GetInvalidFileNameChars()));
             }
             else
